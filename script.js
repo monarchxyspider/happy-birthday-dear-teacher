@@ -1,26 +1,32 @@
 /* =========================================================
    HAPPY BIRTHDAY TEACHER
-   ABC / CLASSROOM THEME
-   ========================================================= */
-
-
-/* =========================================================
-   ELEMENTS
+   FINAL WORKING SCRIPT
    ========================================================= */
 
 const intro = document.getElementById("intro");
-const birthdayExperience = document.getElementById("birthdayExperience");
+const birthdayExperience =
+    document.getElementById("birthdayExperience");
 
-const birthdayMusic = document.getElementById("birthdayMusic");
+const birthdayMusic =
+    document.getElementById("birthdayMusic");
 
-const floatingMessages =
-    document.getElementById("floatingMessages");
+const cake =
+    document.getElementById("cake");
 
-const bigBirthdayText =
-    document.getElementById("bigBirthdayText");
+const cakeIntro =
+    document.getElementById("cakeIntro");
+
+const candles =
+    document.getElementById("candles");
+
+const candleHint =
+    document.getElementById("candleHint");
 
 const birthdayMessage =
     document.getElementById("birthdayMessage");
+
+const bigBirthdayText =
+    document.getElementById("bigBirthdayText");
 
 const messageCard =
     document.getElementById("messageCard");
@@ -28,26 +34,105 @@ const messageCard =
 const wishButton =
     document.getElementById("wishButton");
 
-const candleHint =
-    document.getElementById("candleHint");
-
-const cake =
-    document.getElementById("cake");
+const floatingMessages =
+    document.getElementById("floatingMessages");
 
 
 /* =========================================================
-   SETTINGS
+   VARIABLES
    ========================================================= */
 
 let started = false;
-let candlesBlown = 0;
-let birthdayShown = false;
+let blownCandles = 0;
+let birthdayFinished = false;
 
 const totalCandles = 5;
 
 
 /* =========================================================
-   START EXPERIENCE
+   INITIAL STATE
+   ========================================================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    /*
+     * Experience hidden at first
+     */
+
+    if (birthdayExperience) {
+        birthdayExperience.classList.remove(
+            "experience-visible"
+        );
+    }
+
+
+    /*
+     * Birthday message hidden
+     */
+
+    if (birthdayMessage) {
+        birthdayMessage.classList.remove(
+            "birthday-message-visible"
+        );
+    }
+
+
+    /*
+     * Message card hidden
+     */
+
+    if (messageCard) {
+        messageCard.classList.remove(
+            "message-card-visible"
+        );
+    }
+
+
+    /*
+     * Hide every cake layer initially
+     */
+
+    if (cake) {
+
+        const parts =
+            cake.querySelectorAll(".cake-part");
+
+        parts.forEach(part => {
+
+            part.classList.add("cake-hidden");
+
+        });
+
+
+        const plate =
+            cake.querySelector(".cake-plate");
+
+        if (plate) {
+
+            plate.classList.add("cake-hidden");
+
+        }
+
+    }
+
+
+    /*
+     * Hide candles initially
+     */
+
+    if (candles) {
+
+        candles.classList.remove(
+            "candles-visible"
+        );
+
+    }
+
+});
+
+
+/* =========================================================
+   START WEBSITE
    ========================================================= */
 
 function startBirthday() {
@@ -56,271 +141,329 @@ function startBirthday() {
 
     started = true;
 
-    /* Hide intro */
+
+    /* -----------------------------------------
+       Hide intro
+    ----------------------------------------- */
 
     if (intro) {
-        intro.classList.add("intro-hidden");
+
+        intro.classList.add(
+            "intro-hidden"
+        );
+
     }
 
 
-    /* Show birthday experience */
+    /* -----------------------------------------
+       Show experience
+    ----------------------------------------- */
 
     if (birthdayExperience) {
-        birthdayExperience.classList.add("experience-visible");
+
+        birthdayExperience.classList.add(
+            "experience-visible"
+        );
+
     }
 
 
-    /* Start music */
+    /* -----------------------------------------
+       Music
+    ----------------------------------------- */
 
-    playBirthdayMusic();
+    if (birthdayMusic) {
 
+        birthdayMusic.volume = 0.45;
 
-    /* Start floating messages */
-
-    startFloatingMessages();
-
-
-    /* Start cake animation */
-
-    startCakeAnimation();
-
-}
-
-
-/* =========================================================
-   INTRO CLICK
-   ========================================================= */
-
-if (intro) {
-
-    intro.addEventListener("click", startBirthday);
-
-}
-
-
-/* =========================================================
-   MUSIC
-   ========================================================= */
-
-function playBirthdayMusic() {
-
-    if (!birthdayMusic) return;
-
-    birthdayMusic.volume = 0.45;
-
-    const promise = birthdayMusic.play();
-
-    if (promise !== undefined) {
-
-        promise.catch(() => {
-
-            /*
-             Browser autoplay protection.
-
-             Music will start after the user's next
-             interaction if autoplay is blocked.
-            */
-
-            document.addEventListener(
-                "click",
-                () => {
-
-                    birthdayMusic.play().catch(() => {});
-
-                },
-                { once: true }
+        birthdayMusic.play().catch(() => {
+            console.log(
+                "Music waiting for browser permission."
             );
-
         });
 
     }
 
+
+    /* -----------------------------------------
+       Cake
+    ----------------------------------------- */
+
+    startCake();
+
+
+    /* -----------------------------------------
+       Floating messages
+    ----------------------------------------- */
+
+    setTimeout(() => {
+
+        createFloatingMessage(
+            "Happy Birthday Teacher! 🎂"
+        );
+
+    }, 1500);
+
 }
 
 
 /* =========================================================
-   CAKE LAYER-BY-LAYER ANIMATION
+   TAP ANYWHERE TO START
    ========================================================= */
 
-function startCakeAnimation() {
+if (intro) {
+
+    intro.addEventListener(
+        "click",
+        startBirthday
+    );
+
+}
+
+
+/*
+ * Extra safety:
+ * if user taps the intro content itself
+ */
+
+const introContent =
+    document.querySelector(".intro-content");
+
+if (introContent) {
+
+    introContent.addEventListener(
+        "click",
+        event => {
+
+            event.stopPropagation();
+
+            startBirthday();
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   CAKE BUILDING
+   ========================================================= */
+
+function startCake() {
 
     if (!cake) return;
 
-    const cakeParts =
-        cake.querySelectorAll(".cake-part");
 
-    const cakePlate =
-        cake.querySelector(".cake-plate");
+    const bottom =
+        cake.querySelector(
+            ".cake-bottom-layer"
+        );
 
-    const cakeIntro =
-        document.getElementById("cakeIntro");
+    const cream =
+        cake.querySelector(
+            ".cake-cream-layer"
+        );
+
+    const chocolate =
+        cake.querySelector(
+            ".cake-chocolate-layer"
+        );
+
+    const topCream =
+        cake.querySelector(
+            ".cake-top-layer"
+        );
+
+    const top =
+        cake.querySelector(
+            ".cake-top"
+        );
+
+    const plate =
+        cake.querySelector(
+            ".cake-plate"
+        );
 
 
-    /* Cake starts hidden */
+    /* -----------------------------------------
+       Hide all parts
+    ----------------------------------------- */
 
-    cakeParts.forEach(part => {
+    [
+        bottom,
+        cream,
+        chocolate,
+        topCream,
+        top,
+        plate
+    ].forEach(part => {
 
-        part.classList.add("cake-hidden");
+        if (part) {
+
+            part.classList.add(
+                "cake-hidden"
+            );
+
+        }
 
     });
 
 
-    if (cakePlate) {
+    /* -----------------------------------------
+       Bottom sponge
+    ----------------------------------------- */
 
-        cakePlate.classList.add("cake-hidden");
+    setTimeout(() => {
 
-    }
+        revealCake(bottom);
+
+    }, 700);
 
 
-    /*
-     * Small delay before building cake
-     */
+    /* -----------------------------------------
+       Cream
+    ----------------------------------------- */
+
+    setTimeout(() => {
+
+        revealCake(cream);
+
+    }, 1500);
+
+
+    /* -----------------------------------------
+       Chocolate
+    ----------------------------------------- */
+
+    setTimeout(() => {
+
+        revealCake(chocolate);
+
+    }, 2300);
+
+
+    /* -----------------------------------------
+       Top cream
+    ----------------------------------------- */
+
+    setTimeout(() => {
+
+        revealCake(topCream);
+
+    }, 3100);
+
+
+    /* -----------------------------------------
+       Top chocolate
+    ----------------------------------------- */
+
+    setTimeout(() => {
+
+        revealCake(top);
+
+    }, 3900);
+
+
+    /* -----------------------------------------
+       Plate
+    ----------------------------------------- */
+
+    setTimeout(() => {
+
+        revealCake(plate);
+
+    }, 4600);
+
+
+    /* -----------------------------------------
+       Cake intro disappears
+    ----------------------------------------- */
 
     setTimeout(() => {
 
         if (cakeIntro) {
 
-            cakeIntro.classList.add("cake-intro-fade");
+            cakeIntro.classList.add(
+                "cake-intro-fade"
+            );
 
         }
 
-    }, 600);
+    }, 4200);
 
 
-    /*
-     * Bottom layer
-     */
-
-    setTimeout(() => {
-
-        showCakePart(".cake-bottom-layer");
-
-    }, 1200);
-
-
-    /*
-     * Middle cream
-     */
+    /* -----------------------------------------
+       Candles
+    ----------------------------------------- */
 
     setTimeout(() => {
 
-        showCakePart(".cake-cream-layer");
-
-    }, 2000);
-
-
-    /*
-     * Chocolate middle
-     */
-
-    setTimeout(() => {
-
-        showCakePart(".cake-chocolate-layer");
-
-    }, 2800);
-
-
-    /*
-     * Top cream
-     */
-
-    setTimeout(() => {
-
-        showCakePart(".cake-top-layer");
-
-    }, 3600);
-
-
-    /*
-     * Top chocolate
-     */
-
-    setTimeout(() => {
-
-        showCakePart(".cake-top");
-
-    }, 4400);
-
-
-    /*
-     * Plate
-
-     */
-
-    setTimeout(() => {
-
-        if (cakePlate) {
-
-            cakePlate.classList.remove("cake-hidden");
-            cakePlate.classList.add("cake-built");
-
-        }
+        showCandles();
 
     }, 5000);
 
+}
 
-    /*
-     * Candles appear after cake
-     */
 
-    setTimeout(() => {
+/* =========================================================
+   REVEAL CAKE PART
+   ========================================================= */
 
-        const candles =
-            document.querySelector(".candles");
+function revealCake(element) {
 
-        if (candles) {
+    if (!element) return;
 
-            candles.classList.add("candles-visible");
+    element.classList.remove(
+        "cake-hidden"
+    );
+
+    element.classList.add(
+        "cake-built"
+    );
+
+}
+
+
+/* =========================================================
+   SHOW CANDLES
+   ========================================================= */
+
+function showCandles() {
+
+    if (!candles) return;
+
+    candles.classList.add(
+        "candles-visible"
+    );
+
+
+    const allCandles =
+        document.querySelectorAll(
+            ".candle"
+        );
+
+
+    allCandles.forEach(
+        (candle, index) => {
+
+            setTimeout(() => {
+
+                candle.classList.add(
+                    "candle-lit"
+                );
+
+            }, index * 150);
 
         }
-
-        startCandles();
-
-    }, 5500);
-
-}
+    );
 
 
-/* =========================================================
-   SHOW CAKE PART
-   ========================================================= */
+    if (candleHint) {
 
-function showCakePart(selector) {
+        candleHint.textContent =
+            "✨ Click the candles and make a wish ✨";
 
-    const part =
-        document.querySelector(selector);
-
-    if (!part) return;
-
-    part.classList.remove("cake-hidden");
-
-    part.classList.add("cake-built");
-
-}
-
-
-/* =========================================================
-   CANDLES
-   ========================================================= */
-
-function startCandles() {
-
-    const candles =
-        document.querySelectorAll(".candle");
-
-    candles.forEach((candle, index) => {
-
-        /*
-         * Give each candle a tiny delay
-         */
-
-        setTimeout(() => {
-
-            candle.classList.add("candle-lit");
-
-        }, index * 120);
-
-    });
+    }
 
 }
 
@@ -333,79 +476,100 @@ function blowCandle(candle) {
 
     if (!candle) return;
 
-    /*
-     * Prevent clicking same candle twice
-     */
 
-    if (candle.classList.contains("blown")) {
+    if (
+        candle.classList.contains(
+            "blown"
+        )
+    ) {
+
         return;
+
     }
 
 
-    candle.classList.add("blown");
+    candle.classList.add(
+        "blown"
+    );
 
-    candlesBlown++;
+
+    blownCandles++;
 
 
-    /*
-     * Flame disappears
-     */
+    /* -----------------------------------------
+       Flame
+    ----------------------------------------- */
 
     const flame =
-        candle.querySelector(".flame");
+        candle.querySelector(
+            ".flame"
+        );
 
     if (flame) {
 
-        flame.classList.add("flame-out");
+        flame.classList.add(
+            "flame-out"
+        );
 
     }
 
 
-    /*
-     * Smoke appears
-     */
+    /* -----------------------------------------
+       Smoke
+    ----------------------------------------- */
 
     const smoke =
-        candle.querySelector(".smoke");
+        candle.querySelector(
+            ".smoke"
+        );
 
     if (smoke) {
 
-        smoke.classList.add("smoke-active");
+        smoke.classList.add(
+            "smoke-active"
+        );
 
     }
 
 
-    /*
-     * Tiny candle bounce
-     */
+    /* -----------------------------------------
+       Candle animation
+    ----------------------------------------- */
 
-    candle.classList.add("candle-blown");
+    candle.classList.add(
+        "candle-blown"
+    );
 
 
-    /*
-     * Update hint
-     */
+    /* -----------------------------------------
+       Remaining candles
+    ----------------------------------------- */
 
-    if (candleHint) {
+    const remaining =
+        totalCandles - blownCandles;
 
-        if (candlesBlown < totalCandles) {
 
-            const remaining =
-                totalCandles - candlesBlown;
+    if (
+        candleHint &&
+        remaining > 0
+    ) {
 
-            candleHint.textContent =
-                `✨ ${remaining} candle${remaining === 1 ? "" : "s"} left ✨`;
-
-        }
+        candleHint.textContent =
+            `✨ ${remaining} candle${remaining > 1 ? "s" : ""} left ✨`;
 
     }
 
 
-    /*
-     * When every candle is blown
-     */
+    /* -----------------------------------------
+       ALL CANDLES BLOWN
+    ----------------------------------------- */
 
-    if (candlesBlown >= totalCandles) {
+    if (
+        blownCandles >= totalCandles &&
+        !birthdayFinished
+    ) {
+
+        birthdayFinished = true;
 
         allCandlesBlown();
 
@@ -420,126 +584,127 @@ function blowCandle(candle) {
 
 function allCandlesBlown() {
 
-    if (birthdayShown) return;
-
-    birthdayShown = true;
-
-
     if (candleHint) {
 
-        candleHint.classList.add("hint-complete");
-
         candleHint.textContent =
-            "✨ Wish made! Happy Birthday! ✨";
+            "🎉 Wish made! Happy Birthday! 🎉";
 
-    }
-
-
-    /*
-     * Cake glow becomes stronger
-     */
-
-    const cakeGlow =
-        document.querySelector(".cake-glow");
-
-    if (cakeGlow) {
-
-        cakeGlow.classList.add("celebration-glow");
-
-    }
-
-
-    /*
-     * Start birthday message
-     */
-
-    setTimeout(() => {
-
-        showBirthdayText();
-
-    }, 1200);
-
-
-    /*
-     * Extra floating messages
-
-     */
-
-    setTimeout(() => {
-
-        createFloatingMessage(
-            "Happy Birthday! 🎂",
-            true
+        candleHint.classList.add(
+            "hint-complete"
         );
 
-    }, 500);
+    }
+
+
+    /* Cake celebration */
+
+    if (cake) {
+
+        cake.classList.add(
+            "cake-celebration"
+        );
+
+    }
+
+
+    /* Confetti */
+
+    createConfetti();
+
+
+    /* Floating message */
+
+    createFloatingMessage(
+        "Happy Birthday Teacher! 🎂❤️",
+        true
+    );
+
+
+    /*
+     * Wait before showing big text
+     */
+
+    setTimeout(() => {
+
+        showHappyBirthday();
+
+    }, 1200);
 
 }
 
 
 /* =========================================================
-   LETTER-BY-LETTER HAPPY BIRTHDAY
+   HAPPY BIRTHDAY LETTER BY LETTER
    ========================================================= */
 
-function showBirthdayText() {
+function showHappyBirthday() {
 
-    if (!bigBirthdayText) return;
-
-    const text =
-        "HAPPY BIRTHDAY";
-
-    bigBirthdayText.innerHTML = "";
+    if (!birthdayMessage) return;
 
     birthdayMessage.classList.add(
         "birthday-message-visible"
     );
 
 
+    if (!bigBirthdayText) return;
+
+
+    bigBirthdayText.innerHTML = "";
+
+
+    const text =
+        "HAPPY BIRTHDAY";
+
+
     let index = 0;
 
 
-    function typeLetter() {
+    function typeNextLetter() {
 
         if (index >= text.length) {
 
-            showMessageCard();
+            setTimeout(() => {
+
+                showMessageCard();
+
+            }, 600);
 
             return;
 
         }
 
 
-        const character = text[index];
+        const letter =
+            document.createElement(
+                "span"
+            );
 
 
-        const span =
-            document.createElement("span");
-
-        span.className =
+        letter.className =
             "birthday-letter";
 
 
-        if (character === " ") {
+        if (text[index] === " ") {
 
-            span.innerHTML = "&nbsp;";
+            letter.innerHTML =
+                "&nbsp;";
 
         } else {
 
-            span.textContent = character;
+            letter.textContent =
+                text[index];
 
         }
 
 
-        bigBirthdayText.appendChild(span);
+        bigBirthdayText.appendChild(
+            letter
+        );
 
-
-        /*
-         * Small random entrance effect
-         */
 
         setTimeout(() => {
 
-            span.classList.add(
+            letter.classList.add(
                 "birthday-letter-visible"
             );
 
@@ -550,14 +715,14 @@ function showBirthdayText() {
 
 
         setTimeout(
-            typeLetter,
-            character === " " ? 180 : 120
+            typeNextLetter,
+            130
         );
 
     }
 
 
-    typeLetter();
+    typeNextLetter();
 
 }
 
@@ -570,18 +735,11 @@ function showMessageCard() {
 
     if (!messageCard) return;
 
-    setTimeout(() => {
 
-        messageCard.classList.add(
-            "message-card-visible"
-        );
+    messageCard.classList.add(
+        "message-card-visible"
+    );
 
-    }, 500);
-
-
-    /*
-     * Start bigger floating birthday messages
-     */
 
     setTimeout(() => {
 
@@ -590,83 +748,53 @@ function showMessageCard() {
             true
         );
 
-    }, 1000);
+    }, 800);
 
 }
 
 
 /* =========================================================
-   RANDOM FLOATING MESSAGES
+   FLOATING MESSAGES
    ========================================================= */
 
-const floatingTextList = [
+const messages = [
 
     "Happy Birthday! 🎂",
 
     "Best Teacher Ever! 📚",
 
-    "Thank You, Teacher! ❤️",
+    "Thank You Teacher! ❤️",
+
+    "You Are Amazing! ⭐",
 
     "Keep Inspiring! ✨",
 
     "A • B • C 🎓",
 
-    "You Are Amazing! ⭐",
-
     "Best Wishes! 💖",
 
-    "Have a Beautiful Day! 🌸",
+    "Have A Beautiful Day! 🌸",
 
     "Keep Smiling! 😊",
 
-    "Thank You For Everything! 📖",
-
-    "You're Brilliant! ✏️",
-
-    "Many Many Happy Returns! 🎉"
+    "You're Brilliant! ✏️"
 
 ];
 
 
-function startFloatingMessages() {
-
-    /*
-     * First message
-     */
-
-    setTimeout(() => {
-
-        createFloatingMessage();
-
-    }, 2500);
-
-
-    /*
-     * Continue randomly
-     */
-
-    setInterval(() => {
-
-        if (!started) return;
-
-        createFloatingMessage();
-
-    }, 3000);
-
-}
-
-
-/* =========================================================
-   CREATE FLOATING MESSAGE
-   ========================================================= */
-
-function createFloatingMessage(text = null, special = false) {
+function createFloatingMessage(
+    customText = null,
+    special = false
+) {
 
     if (!floatingMessages) return;
 
 
     const message =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
+
 
     message.className =
         special
@@ -675,60 +803,40 @@ function createFloatingMessage(text = null, special = false) {
 
 
     message.textContent =
-        text ||
-        floatingTextList[
+        customText ||
+        messages[
             Math.floor(
                 Math.random() *
-                floatingTextList.length
+                messages.length
             )
         ];
 
 
     /*
-     * Random screen position
+     * Random position
      */
 
-    const left =
-        Math.random() * 82 + 5;
-
-    const top =
-        Math.random() * 72 + 8;
-
-
     message.style.left =
-        `${left}%`;
+        `${Math.random() * 80 + 5}%`;
 
     message.style.top =
-        `${top}%`;
+        `${Math.random() * 70 + 5}%`;
 
 
     /*
      * Random rotation
      */
 
-    const rotation =
-        Math.random() * 12 - 6;
-
     message.style.setProperty(
         "--random-rotation",
-        `${rotation}deg`
+        `${Math.random() * 10 - 5}deg`
     );
 
 
-    /*
-     * Random animation delay
-     */
+    floatingMessages.appendChild(
+        message
+    );
 
-    message.style.animationDelay =
-        `${Math.random() * 0.5}s`;
-
-
-    floatingMessages.appendChild(message);
-
-
-    /*
-     * Remove later
-     */
 
     setTimeout(() => {
 
@@ -736,20 +844,35 @@ function createFloatingMessage(text = null, special = false) {
             "floating-message-hide"
         );
 
-    }, special ? 5000 : 3500);
+    }, special ? 4500 : 3000);
 
 
     setTimeout(() => {
 
         message.remove();
 
-    }, special ? 6500 : 5000);
+    }, special ? 6000 : 4500);
 
 }
 
 
 /* =========================================================
-   MAKE A WISH BUTTON
+   CONTINUOUS FLOATING MESSAGES
+   ========================================================= */
+
+setInterval(() => {
+
+    if (started) {
+
+        createFloatingMessage();
+
+    }
+
+}, 3500);
+
+
+/* =========================================================
+   MAKE A WISH
    ========================================================= */
 
 if (wishButton) {
@@ -763,6 +886,9 @@ if (wishButton) {
 
 
 function makeWish() {
+
+    if (!wishButton) return;
+
 
     /*
      * Button animation
@@ -783,48 +909,49 @@ function makeWish() {
 
 
     /*
-     * Create lots of little wishes
+     * Wish messages
      */
 
     const wishes = [
 
-        "May you always smile! ❤️",
+        "May Allah bless you 🤲",
 
-        "May Allah bless you! 🤲",
+        "May you always stay happy ❤️",
 
-        "Keep inspiring! 📚",
+        "May your life be full of peace ✨",
 
-        "Stay happy! ✨",
+        "Keep inspiring everyone 📚",
 
-        "Best wishes, Teacher! 🎂"
+        "Many happy returns! 🎂"
 
     ];
 
 
-    wishes.forEach((wish, index) => {
+    wishes.forEach(
+        (wish, index) => {
 
-        setTimeout(() => {
+            setTimeout(() => {
 
-            createFloatingMessage(
-                wish,
-                true
-            );
+                createFloatingMessage(
+                    wish,
+                    true
+                );
 
-        }, index * 350);
+            }, index * 450);
 
-    });
+        }
+    );
 
 
     /*
-     * Confetti effect
-
+     * Confetti
      */
 
     createConfetti();
 
 
     /*
-     * Play music again if paused
+     * Music
      */
 
     if (
@@ -832,7 +959,9 @@ function makeWish() {
         birthdayMusic.paused
     ) {
 
-        birthdayMusic.play().catch(() => {});
+        birthdayMusic.play().catch(
+            () => {}
+        );
 
     }
 
@@ -840,28 +969,34 @@ function makeWish() {
 
 
 /* =========================================================
-   SIMPLE CONFETTI
+   CONFETTI
    ========================================================= */
 
 function createConfetti() {
 
     const symbols = [
-
-        "✦",
-        "★",
-        "♥",
-        "✧",
-        "•",
         "🎉",
-        "✨"
-
+        "✨",
+        "⭐",
+        "♥",
+        "✦",
+        "🎊",
+        "📚",
+        "✏️"
     ];
 
 
-    for (let i = 0; i < 35; i++) {
+    for (
+        let i = 0;
+        i < 40;
+        i++
+    ) {
 
         const piece =
-            document.createElement("span");
+            document.createElement(
+                "span"
+            );
+
 
         piece.className =
             "generated-confetti";
@@ -879,14 +1014,18 @@ function createConfetti() {
         piece.style.left =
             `${Math.random() * 100}%`;
 
+
         piece.style.animationDelay =
             `${Math.random() * 0.8}s`;
+
 
         piece.style.animationDuration =
             `${2 + Math.random() * 2}s`;
 
 
-        document.body.appendChild(piece);
+        document.body.appendChild(
+            piece
+        );
 
 
         setTimeout(() => {
@@ -901,82 +1040,12 @@ function createConfetti() {
 
 
 /* =========================================================
-   FLOATING ABC LETTERS
-   ========================================================= */
-
-function createABCFloat() {
-
-    const letters = [
-        "A",
-        "B",
-        "C",
-        "📚",
-        "✏️",
-        "⭐"
-    ];
-
-
-    const item =
-        document.createElement("div");
-
-    item.className =
-        "generated-abc";
-
-
-    item.textContent =
-        letters[
-            Math.floor(
-                Math.random() *
-                letters.length
-            )
-        ];
-
-
-    item.style.left =
-        `${Math.random() * 95}%`;
-
-    item.style.animationDuration =
-        `${5 + Math.random() * 5}s`;
-
-
-    document.body.appendChild(item);
-
-
-    setTimeout(() => {
-
-        item.remove();
-
-    }, 10000);
-
-}
-
-
-/* =========================================================
-   ABC BACKGROUND LOOP
-   ========================================================= */
-
-setInterval(() => {
-
-    if (started) {
-
-        createABCFloat();
-
-    }
-
-}, 4500);
-
-
-/* =========================================================
    KEYBOARD SUPPORT
    ========================================================= */
 
 document.addEventListener(
     "keydown",
     event => {
-
-        /*
-         * Enter / Space starts experience
-         */
 
         if (
             !started &&
@@ -997,10 +1066,12 @@ document.addEventListener(
 
 
 /* =========================================================
-   PREVENT IMAGE DRAGGING
+   IMAGE DRAG PREVENTION
    ========================================================= */
 
-document.querySelectorAll("img").forEach(img => {
+document.querySelectorAll(
+    "img"
+).forEach(img => {
 
     img.addEventListener(
         "dragstart",
@@ -1015,35 +1086,12 @@ document.querySelectorAll("img").forEach(img => {
 
 
 /* =========================================================
-   INITIAL STATE
+   MAKE BLOW CANDLE GLOBAL
+   IMPORTANT FOR onclick="blowCandle(this)"
    ========================================================= */
 
-if (birthdayExperience) {
-
-    birthdayExperience.classList.remove(
-        "experience-visible"
-    );
-
-}
-
-
-if (birthdayMessage) {
-
-    birthdayMessage.classList.remove(
-        "birthday-message-visible"
-    );
-
-
-}
-
-
-if (messageCard) {
-
-    messageCard.classList.remove(
-        "message-card-visible"
-    );
-
-}
+window.blowCandle =
+    blowCandle;
 
 
 /* =========================================================
@@ -1051,5 +1099,5 @@ if (messageCard) {
    ========================================================= */
 
 console.log(
-    "🎓 Happy Birthday Teacher website loaded successfully! ❤️"
+    "🎓 Teacher Birthday Website Ready ❤️"
 );
