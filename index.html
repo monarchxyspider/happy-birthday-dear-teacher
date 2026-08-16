@@ -26,7 +26,6 @@
 
 <body>
 
-
     <!-- ========================================= -->
     <!-- CLASSROOM / ABC BACKGROUND -->
     <!-- ========================================= -->
@@ -39,7 +38,7 @@
 
 
     <!-- ========================================= -->
-    <!-- FLOATING ABC ELEMENTS -->
+    <!-- FLOATING BIRTHDAY MESSAGES -->
     <!-- ========================================= -->
 
     <div
@@ -50,25 +49,64 @@
 
 
     <!-- ========================================= -->
-    <!-- ABC DECORATIONS -->
+    <!-- CUSTOM ABC DECORATIONS -->
     <!-- ========================================= -->
 
-    <div class="abc-decorations" aria-hidden="true">
+    <div
+        class="abc-decorations"
+        aria-hidden="true"
+    >
 
-        <span class="abc-item abc-a">A</span>
-        <span class="abc-item abc-b">B</span>
-        <span class="abc-item abc-c">C</span>
+        <!-- Media.js baad mein in images ko set karega -->
 
-        <span class="school-item school-pencil">✏️</span>
-        <span class="school-item school-book">📚</span>
-        <span class="school-item school-star">⭐</span>
-        <span class="school-item school-ruler">📏</span>
+        <img
+            id="mediaAbcA"
+            class="abc-item abc-a custom-media"
+            alt=""
+        >
+
+        <img
+            id="mediaAbcB"
+            class="abc-item abc-b custom-media"
+            alt=""
+        >
+
+        <img
+            id="mediaAbcC"
+            class="abc-item abc-c custom-media"
+            alt=""
+        >
+
+
+        <img
+            id="mediaPencil"
+            class="school-item school-pencil custom-media"
+            alt=""
+        >
+
+        <img
+            id="mediaBook"
+            class="school-item school-book custom-media"
+            alt=""
+        >
+
+        <img
+            id="mediaStar"
+            class="school-item school-star custom-media"
+            alt=""
+        >
+
+        <img
+            id="mediaRuler"
+            class="school-item school-ruler custom-media"
+            alt=""
+        >
 
     </div>
 
 
     <!-- ========================================= -->
-    <!-- OLD DECORATION MEDIA — PRESERVED -->
+    <!-- OLD CUSTOM DECORATION MEDIA — PRESERVED -->
     <!-- ========================================= -->
 
     <div class="floating-images">
@@ -124,8 +162,11 @@
             <div class="intro-content">
 
 
-                <div class="intro-school-icon">
-                    📚✏️
+                <div
+                    class="intro-school-icon"
+                    id="introSchoolIcon"
+                >
+                    <!-- Custom image will be inserted by media.js -->
                 </div>
 
 
@@ -138,6 +179,7 @@
                 <h1 class="intro-title">
 
                     Happy Birthday,
+
                     <span class="teacher-word">
                         Teacher
                     </span>
@@ -180,24 +222,30 @@
 
 
             <!-- ========================================= -->
-            <!-- ABC HEADER -->
+            <!-- TEACHER HEADER -->
             <!-- ========================================= -->
 
             <div class="teacher-header">
 
-                <span>📚</span>
+                <span
+                    id="headerBook"
+                    class="header-media"
+                ></span>
 
                 <span class="teacher-header-text">
                     TODAY'S SPECIAL LESSON
                 </span>
 
-                <span>✏️</span>
+                <span
+                    id="headerPencil"
+                    class="header-media"
+                ></span>
 
             </div>
 
 
             <!-- ========================================= -->
-            <!-- CAKE INTRO TEXT -->
+            <!-- CAKE INTRO -->
             <!-- ========================================= -->
 
             <div
@@ -218,7 +266,7 @@
 
 
             <!-- ========================================= -->
-            <!-- CAKE AREA -->
+            <!-- CAKE SCENE -->
             <!-- ========================================= -->
 
             <div
@@ -227,9 +275,7 @@
             >
 
 
-                <!-- ===================================== -->
                 <!-- CAKE GLOW -->
-                <!-- ===================================== -->
 
                 <div class="cake-glow"></div>
 
@@ -244,8 +290,6 @@
                 >
 
 
-                    <!-- Candle 1 -->
-
                     <div
                         class="candle candle-1"
                         data-candle="1"
@@ -253,9 +297,7 @@
                     >
 
                         <div class="flame">
-
                             <span class="flame-inner"></span>
-
                         </div>
 
                         <div class="smoke"></div>
@@ -264,8 +306,6 @@
 
                     </div>
 
-
-                    <!-- Candle 2 -->
 
                     <div
                         class="candle candle-2"
@@ -274,9 +314,7 @@
                     >
 
                         <div class="flame">
-
                             <span class="flame-inner"></span>
-
                         </div>
 
                         <div class="smoke"></div>
@@ -285,8 +323,6 @@
 
                     </div>
 
-
-                    <!-- Candle 3 -->
 
                     <div
                         class="candle candle-3"
@@ -295,9 +331,7 @@
                     >
 
                         <div class="flame">
-
                             <span class="flame-inner"></span>
-
                         </div>
 
                         <div class="smoke"></div>
@@ -306,8 +340,6 @@
 
                     </div>
 
-
-                    <!-- Candle 4 -->
 
                     <div
                         class="candle candle-4"
@@ -316,9 +348,7 @@
                     >
 
                         <div class="flame">
-
                             <span class="flame-inner"></span>
-
                         </div>
 
                         <div class="smoke"></div>
@@ -327,8 +357,6 @@
 
                     </div>
 
-
-                    <!-- Candle 5 -->
 
                     <div
                         class="candle candle-5"
@@ -337,9 +365,7 @@
                     >
 
                         <div class="flame">
-
                             <span class="flame-inner"></span>
-
                         </div>
 
                         <div class="smoke"></div>
@@ -347,7 +373,6 @@
                         <div class="candle-body"></div>
 
                     </div>
-
 
                 </div>
 
@@ -362,9 +387,7 @@
                 >
 
 
-                    <!-- ================================= -->
                     <!-- TOP CHOCOLATE -->
-                    <!-- ================================= -->
 
                     <div
                         class="cake-part cake-top"
@@ -377,21 +400,10 @@
                         <div class="chocolate-drip drip-4"></div>
                         <div class="chocolate-drip drip-5"></div>
 
+                        <span class="cake-heart heart-1">♥</span>
+                        <span class="cake-heart heart-2">♥</span>
+                        <span class="cake-heart heart-3">♥</span>
 
-                        <span class="cake-heart heart-1">
-                            ♥
-                        </span>
-
-                        <span class="cake-heart heart-2">
-                            ♥
-                        </span>
-
-                        <span class="cake-heart heart-3">
-                            ♥
-                        </span>
-
-
-                        <!-- ABC cake topper -->
 
                         <div class="abc-cake-topper">
                             ABC
@@ -400,9 +412,7 @@
                     </div>
 
 
-                    <!-- ================================= -->
                     <!-- TOP CREAM -->
-                    <!-- ================================= -->
 
                     <div
                         class="cake-part cake-layer cake-top-layer"
@@ -414,9 +424,7 @@
                     </div>
 
 
-                    <!-- ================================= -->
                     <!-- CHOCOLATE MIDDLE -->
-                    <!-- ================================= -->
 
                     <div
                         class="cake-part cake-layer cake-chocolate-layer"
@@ -424,7 +432,6 @@
                     >
 
                         <div class="chocolate-stripe"></div>
-
 
                         <div class="cake-sprinkles">
 
@@ -440,9 +447,7 @@
                     </div>
 
 
-                    <!-- ================================= -->
                     <!-- CREAM MIDDLE -->
-                    <!-- ================================= -->
 
                     <div
                         class="cake-part cake-layer cake-cream-layer"
@@ -461,9 +466,7 @@
                     </div>
 
 
-                    <!-- ================================= -->
                     <!-- BOTTOM CHOCOLATE -->
-                    <!-- ================================= -->
 
                     <div
                         class="cake-part cake-layer cake-bottom-layer"
@@ -483,31 +486,24 @@
                     </div>
 
 
-                    <!-- ================================= -->
                     <!-- CAKE PLATE -->
-                    <!-- ================================= -->
 
                     <div
                         class="cake-plate"
                         data-layer="plate"
                     ></div>
 
-
                 </div>
 
 
-                <!-- ===================================== -->
                 <!-- CANDLE HINT -->
-                <!-- ===================================== -->
 
                 <p
                     class="candle-hint"
                     id="candleHint"
                 >
-
                     ✨ Click the candles
                     and make a wish ✨
-
                 </p>
 
 
@@ -515,7 +511,7 @@
 
 
             <!-- ========================================= -->
-            <!-- BIG HAPPY BIRTHDAY -->
+            <!-- BIRTHDAY MESSAGE -->
             <!-- ========================================= -->
 
             <section
@@ -524,8 +520,11 @@
             >
 
 
-                <div class="birthday-badge">
-                    🎓 ✨
+                <div
+                    class="birthday-badge"
+                    id="birthdayBadge"
+                >
+                    <!-- Custom teacher media will be inserted here -->
                 </div>
 
 
@@ -536,18 +535,18 @@
                 ></h2>
 
 
-                <!-- ===================================== -->
                 <!-- MESSAGE CARD -->
-                <!-- ===================================== -->
 
                 <div
                     class="message-card"
                     id="messageCard"
                 >
 
-
-                    <div class="message-card-decoration">
-                        📖 ✏️ ⭐
+                    <div
+                        class="message-card-decoration"
+                        id="messageCardDecoration"
+                    >
+                        <!-- Custom media will be inserted by media.js -->
                     </div>
 
 
@@ -557,34 +556,28 @@
 
 
                     <p>
-
                         You are not just a teacher,
                         you are someone who makes learning
                         feel special and every lesson
                         worth remembering. 📚❤️
-
                     </p>
 
 
                     <p>
-
                         Your patience, kindness and dedication
                         inspire everyone around you.
                         The lessons you teach go far beyond
                         books and classrooms.
-
                     </p>
 
 
                     <p>
-
                         May Allah bless you with happiness,
                         peace, good health and countless
                         beautiful moments.
 
                         May every new year of your life
                         bring you new reasons to smile.
-
                     </p>
 
 
@@ -604,9 +597,7 @@
 
                     </p>
 
-
                 </div>
-
 
             </section>
 
@@ -620,9 +611,7 @@
                 class="wish-button"
                 type="button"
             >
-
                 💖 Make a Wish
-
             </button>
 
 
@@ -667,7 +656,7 @@
     </div>
 
 
-        <!-- ========================================= -->
+    <!-- ========================================= -->
     <!-- CREATED BY -->
     <!-- ========================================= -->
 
@@ -683,6 +672,13 @@
         <span>✏️</span>
 
     </footer>
+
+
+    <!-- ========================================= -->
+    <!-- MEDIA CONFIG -->
+    <!-- ========================================= -->
+
+    <script src="media.js"></script>
 
 
     <!-- ========================================= -->
