@@ -3,7 +3,14 @@
    FINAL WORKING SCRIPT
    ========================================================= */
 
-const intro = document.getElementById("intro");
+
+/* =========================================================
+   ELEMENTS
+   ========================================================= */
+
+const intro =
+    document.getElementById("intro");
+
 const birthdayExperience =
     document.getElementById("birthdayExperience");
 
@@ -53,11 +60,16 @@ const totalCandles = 5;
    INITIAL STATE
    ========================================================= */
 
-document.addEventListener("DOMContentLoaded", () => {
+function initializeWebsite() {
 
-    /*
-     * Experience hidden at first
-     */
+    /* Intro visible */
+
+    if (intro) {
+        intro.classList.remove("intro-hidden");
+    }
+
+
+    /* Experience hidden */
 
     if (birthdayExperience) {
         birthdayExperience.classList.remove(
@@ -66,9 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    /*
-     * Birthday message hidden
-     */
+    /* Birthday message hidden */
 
     if (birthdayMessage) {
         birthdayMessage.classList.remove(
@@ -77,9 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    /*
-     * Message card hidden
-     */
+    /* Message card hidden */
 
     if (messageCard) {
         messageCard.classList.remove(
@@ -88,9 +96,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    /*
-     * Hide every cake layer initially
-     */
+    /* Hide cake parts */
 
     if (cake) {
 
@@ -98,27 +104,32 @@ document.addEventListener("DOMContentLoaded", () => {
             cake.querySelectorAll(".cake-part");
 
         parts.forEach(part => {
-
             part.classList.add("cake-hidden");
-
         });
 
 
-        const plate =
-            cake.querySelector(".cake-plate");
+        const cakeParts = [
+            cake.querySelector(".cake-bottom-layer"),
+            cake.querySelector(".cake-cream-layer"),
+            cake.querySelector(".cake-chocolate-layer"),
+            cake.querySelector(".cake-top-layer"),
+            cake.querySelector(".cake-top"),
+            cake.querySelector(".cake-plate")
+        ];
 
-        if (plate) {
 
-            plate.classList.add("cake-hidden");
+        cakeParts.forEach(part => {
 
-        }
+            if (part) {
+                part.classList.add("cake-hidden");
+            }
+
+        });
 
     }
 
 
-    /*
-     * Hide candles initially
-     */
+    /* Candles hidden */
 
     if (candles) {
 
@@ -128,11 +139,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 
-});
+}
 
 
 /* =========================================================
-   START WEBSITE
+   DOM READY
+   ========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    initializeWebsite
+);
+
+
+/* =========================================================
+   START BIRTHDAY
    ========================================================= */
 
 function startBirthday() {
@@ -176,24 +197,31 @@ function startBirthday() {
 
         birthdayMusic.volume = 0.45;
 
-        birthdayMusic.play().catch(() => {
-            console.log(
-                "Music waiting for browser permission."
-            );
-        });
+        const playPromise =
+            birthdayMusic.play();
+
+        if (playPromise) {
+
+            playPromise.catch(() => {
+                console.log(
+                    "Music waiting for browser permission."
+                );
+            });
+
+        }
 
     }
 
 
     /* -----------------------------------------
-       Cake
+       Start cake
     ----------------------------------------- */
 
     startCake();
 
 
     /* -----------------------------------------
-       Floating messages
+       First floating message
     ----------------------------------------- */
 
     setTimeout(() => {
@@ -208,7 +236,7 @@ function startBirthday() {
 
 
 /* =========================================================
-   TAP ANYWHERE TO START
+   INTRO CLICK
    ========================================================= */
 
 if (intro) {
@@ -221,10 +249,9 @@ if (intro) {
 }
 
 
-/*
- * Extra safety:
- * if user taps the intro content itself
- */
+/* =========================================================
+   INTRO CONTENT CLICK
+   ========================================================= */
 
 const introContent =
     document.querySelector(".intro-content");
@@ -285,18 +312,19 @@ function startCake() {
         );
 
 
-    /* -----------------------------------------
-       Hide all parts
-    ----------------------------------------- */
-
-    [
+    const parts = [
         bottom,
         cream,
         chocolate,
         topCream,
         top,
         plate
-    ].forEach(part => {
+    ];
+
+
+    /* Hide everything */
+
+    parts.forEach(part => {
 
         if (part) {
 
@@ -304,14 +332,16 @@ function startCake() {
                 "cake-hidden"
             );
 
+            part.classList.remove(
+                "cake-built"
+            );
+
         }
 
     });
 
 
-    /* -----------------------------------------
-       Bottom sponge
-    ----------------------------------------- */
+    /* Bottom */
 
     setTimeout(() => {
 
@@ -320,9 +350,7 @@ function startCake() {
     }, 700);
 
 
-    /* -----------------------------------------
-       Cream
-    ----------------------------------------- */
+    /* Cream */
 
     setTimeout(() => {
 
@@ -331,9 +359,7 @@ function startCake() {
     }, 1500);
 
 
-    /* -----------------------------------------
-       Chocolate
-    ----------------------------------------- */
+    /* Chocolate */
 
     setTimeout(() => {
 
@@ -342,9 +368,7 @@ function startCake() {
     }, 2300);
 
 
-    /* -----------------------------------------
-       Top cream
-    ----------------------------------------- */
+    /* Top cream */
 
     setTimeout(() => {
 
@@ -353,9 +377,7 @@ function startCake() {
     }, 3100);
 
 
-    /* -----------------------------------------
-       Top chocolate
-    ----------------------------------------- */
+    /* Top */
 
     setTimeout(() => {
 
@@ -364,9 +386,7 @@ function startCake() {
     }, 3900);
 
 
-    /* -----------------------------------------
-       Plate
-    ----------------------------------------- */
+    /* Plate */
 
     setTimeout(() => {
 
@@ -375,9 +395,7 @@ function startCake() {
     }, 4600);
 
 
-    /* -----------------------------------------
-       Cake intro disappears
-    ----------------------------------------- */
+    /* Cake intro */
 
     setTimeout(() => {
 
@@ -392,9 +410,7 @@ function startCake() {
     }, 4200);
 
 
-    /* -----------------------------------------
-       Candles
-    ----------------------------------------- */
+    /* Candles */
 
     setTimeout(() => {
 
@@ -406,7 +422,7 @@ function startCake() {
 
 
 /* =========================================================
-   REVEAL CAKE PART
+   REVEAL CAKE
    ========================================================= */
 
 function revealCake(element) {
@@ -431,6 +447,7 @@ function revealCake(element) {
 function showCandles() {
 
     if (!candles) return;
+
 
     candles.classList.add(
         "candles-visible"
@@ -496,9 +513,7 @@ function blowCandle(candle) {
     blownCandles++;
 
 
-    /* -----------------------------------------
-       Flame
-    ----------------------------------------- */
+    /* Flame */
 
     const flame =
         candle.querySelector(
@@ -514,9 +529,7 @@ function blowCandle(candle) {
     }
 
 
-    /* -----------------------------------------
-       Smoke
-    ----------------------------------------- */
+    /* Smoke */
 
     const smoke =
         candle.querySelector(
@@ -532,18 +545,12 @@ function blowCandle(candle) {
     }
 
 
-    /* -----------------------------------------
-       Candle animation
-    ----------------------------------------- */
-
     candle.classList.add(
         "candle-blown"
     );
 
 
-    /* -----------------------------------------
-       Remaining candles
-    ----------------------------------------- */
+    /* Remaining */
 
     const remaining =
         totalCandles - blownCandles;
@@ -560,9 +567,7 @@ function blowCandle(candle) {
     }
 
 
-    /* -----------------------------------------
-       ALL CANDLES BLOWN
-    ----------------------------------------- */
+    /* All blown */
 
     if (
         blownCandles >= totalCandles &&
@@ -596,8 +601,6 @@ function allCandlesBlown() {
     }
 
 
-    /* Cake celebration */
-
     if (cake) {
 
         cake.classList.add(
@@ -607,22 +610,14 @@ function allCandlesBlown() {
     }
 
 
-    /* Confetti */
-
     createConfetti();
 
-
-    /* Floating message */
 
     createFloatingMessage(
         "Happy Birthday Teacher! 🎂❤️",
         true
     );
 
-
-    /*
-     * Wait before showing big text
-     */
 
     setTimeout(() => {
 
@@ -634,12 +629,13 @@ function allCandlesBlown() {
 
 
 /* =========================================================
-   HAPPY BIRTHDAY LETTER BY LETTER
+   HAPPY BIRTHDAY TEXT
    ========================================================= */
 
 function showHappyBirthday() {
 
     if (!birthdayMessage) return;
+
 
     birthdayMessage.classList.add(
         "birthday-message-visible"
@@ -702,13 +698,13 @@ function showHappyBirthday() {
         );
 
 
-        setTimeout(() => {
+        requestAnimationFrame(() => {
 
             letter.classList.add(
                 "birthday-letter-visible"
             );
 
-        }, 30);
+        });
 
 
         index++;
@@ -760,23 +756,14 @@ function showMessageCard() {
 const messages = [
 
     "Happy Birthday! 🎂",
-
     "Best Teacher Ever! 📚",
-
     "Thank You Teacher! ❤️",
-
     "You Are Amazing! ⭐",
-
     "Keep Inspiring! ✨",
-
     "A • B • C 🎓",
-
     "Best Wishes! 💖",
-
     "Have A Beautiful Day! 🌸",
-
     "Keep Smiling! 😊",
-
     "You're Brilliant! ✏️"
 
 ];
@@ -812,20 +799,13 @@ function createFloatingMessage(
         ];
 
 
-    /*
-     * Random position
-     */
-
     message.style.left =
         `${Math.random() * 80 + 5}%`;
+
 
     message.style.top =
         `${Math.random() * 70 + 5}%`;
 
-
-    /*
-     * Random rotation
-     */
 
     message.style.setProperty(
         "--random-rotation",
@@ -857,7 +837,7 @@ function createFloatingMessage(
 
 
 /* =========================================================
-   CONTINUOUS FLOATING MESSAGES
+   CONTINUOUS FLOATING
    ========================================================= */
 
 setInterval(() => {
@@ -872,7 +852,7 @@ setInterval(() => {
 
 
 /* =========================================================
-   MAKE A WISH
+   WISH BUTTON
    ========================================================= */
 
 if (wishButton) {
@@ -890,10 +870,6 @@ function makeWish() {
     if (!wishButton) return;
 
 
-    /*
-     * Button animation
-     */
-
     wishButton.classList.add(
         "wish-button-clicked"
     );
@@ -908,20 +884,12 @@ function makeWish() {
     }, 700);
 
 
-    /*
-     * Wish messages
-     */
-
     const wishes = [
 
         "May Allah bless you 🤲",
-
         "May you always stay happy ❤️",
-
         "May your life be full of peace ✨",
-
         "Keep inspiring everyone 📚",
-
         "Many happy returns! 🎂"
 
     ];
@@ -943,16 +911,8 @@ function makeWish() {
     );
 
 
-    /*
-     * Confetti
-     */
-
     createConfetti();
 
-
-    /*
-     * Music
-     */
 
     if (
         birthdayMusic &&
@@ -1040,7 +1000,7 @@ function createConfetti() {
 
 
 /* =========================================================
-   KEYBOARD SUPPORT
+   KEYBOARD
    ========================================================= */
 
 document.addEventListener(
@@ -1069,25 +1029,25 @@ document.addEventListener(
    IMAGE DRAG PREVENTION
    ========================================================= */
 
-document.querySelectorAll(
-    "img"
-).forEach(img => {
+document.addEventListener(
+    "dragstart",
+    event => {
 
-    img.addEventListener(
-        "dragstart",
-        event => {
+        if (
+            event.target &&
+            event.target.tagName === "IMG"
+        ) {
 
             event.preventDefault();
 
         }
-    );
 
-});
+    }
+);
 
 
 /* =========================================================
-   MAKE BLOW CANDLE GLOBAL
-   IMPORTANT FOR onclick="blowCandle(this)"
+   GLOBAL CANDLE FUNCTION
    ========================================================= */
 
 window.blowCandle =
@@ -1095,7 +1055,15 @@ window.blowCandle =
 
 
 /* =========================================================
-   DONE
+   GLOBAL START FUNCTION
+   ========================================================= */
+
+window.startBirthday =
+    startBirthday;
+
+
+/* =========================================================
+   READY
    ========================================================= */
 
 console.log(
