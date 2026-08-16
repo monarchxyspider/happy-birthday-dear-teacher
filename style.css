@@ -1764,5 +1764,499 @@ button:focus-visible,
 
 
 /* =========================================================
-   END
+   JAVASCRIPT STATE FIXES
    ========================================================= */
+
+
+/* =========================================================
+   INTRO
+   ========================================================= */
+
+.intro {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: scale(1);
+}
+
+.intro.intro-hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: scale(1.05);
+}
+
+
+/* =========================================================
+   BIRTHDAY EXPERIENCE
+   ========================================================= */
+
+.birthday-experience {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(25px);
+
+    transition:
+        opacity 0.8s ease,
+        visibility 0.8s ease,
+        transform 0.8s ease;
+}
+
+.birthday-experience.experience-visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+
+/* =========================================================
+   CAKE PARTS
+   ========================================================= */
+
+.cake-hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+    transform:
+        translateX(-50%)
+        translateY(20px)
+        scale(0.92);
+}
+
+.cake-built {
+    opacity: 1;
+    visibility: visible;
+
+    pointer-events: auto;
+
+    transform:
+        translateX(-50%)
+        translateY(0)
+        scale(1);
+
+    transition:
+        opacity 0.65s ease,
+        transform 0.65s ease,
+        visibility 0.65s ease;
+}
+
+
+/* =========================================================
+   CAKE TOP SPECIAL
+   ========================================================= */
+
+.cake-top.cake-hidden {
+    transform:
+        translateX(-50%)
+        translateY(20px)
+        scale(0.92);
+}
+
+.cake-top.cake-built {
+    transform:
+        translateX(-50%)
+        translateY(0)
+        scale(1);
+}
+
+
+/* =========================================================
+   PLATE
+   ========================================================= */
+
+.cake-plate.cake-hidden {
+    transform:
+        translateX(-50%)
+        translateY(20px)
+        scale(0.92);
+}
+
+.cake-plate.cake-built {
+    transform:
+        translateX(-50%)
+        translateY(0)
+        scale(1);
+}
+
+
+/* =========================================================
+   CAKE INTRO FADE
+   ========================================================= */
+
+.cake-intro {
+    opacity: 1;
+
+    transition:
+        opacity 0.7s ease,
+        transform 0.7s ease;
+}
+
+.cake-intro.cake-intro-fade {
+    opacity: 0;
+    transform: translateY(-15px);
+}
+
+
+/* =========================================================
+   CANDLES
+   ========================================================= */
+
+.candles {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+    transform:
+        translateY(20px)
+        scale(0.9);
+
+    transition:
+        opacity 0.7s ease,
+        transform 0.7s ease,
+        visibility 0.7s ease;
+}
+
+.candles.candles-visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+
+    transform:
+        translateY(0)
+        scale(1);
+}
+
+
+/* =========================================================
+   CANDLE LIT
+   ========================================================= */
+
+.candle-lit .flame {
+    opacity: 1;
+    visibility: visible;
+}
+
+.candle:not(.candle-lit) .flame {
+    opacity: 0;
+}
+
+
+/* =========================================================
+   FLAME OUT
+   ========================================================= */
+
+.flame.flame-out {
+    opacity: 0 !important;
+
+    transform:
+        translateX(-50%)
+        scale(0.2);
+
+    transition:
+        opacity 0.3s ease,
+        transform 0.3s ease;
+}
+
+
+/* =========================================================
+   SMOKE
+   ========================================================= */
+
+.smoke.smoke-active {
+    animation:
+        smokeRise 1.5s ease-out forwards;
+}
+
+
+/* =========================================================
+   BLOWN CANDLE
+   ========================================================= */
+
+.candle.candle-blown {
+    transform:
+        translateY(3px)
+        rotate(-2deg);
+}
+
+
+/* =========================================================
+   BIRTHDAY MESSAGE
+   ========================================================= */
+
+.birthday-message {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+    transform: translateY(35px);
+
+    transition:
+        opacity 0.8s ease,
+        visibility 0.8s ease,
+        transform 0.8s ease;
+}
+
+.birthday-message.birthday-message-visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+
+    transform: translateY(0);
+}
+
+
+/* =========================================================
+   MESSAGE CARD
+   ========================================================= */
+
+.message-card {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+    transform:
+        translateY(30px)
+        scale(0.97);
+
+    transition:
+        opacity 0.8s ease,
+        visibility 0.8s ease,
+        transform 0.8s ease;
+}
+
+.message-card.message-card-visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+
+    transform:
+        translateY(0)
+        scale(1);
+}
+
+
+/* =========================================================
+   BIRTHDAY LETTER
+   ========================================================= */
+
+.birthday-letter {
+    display: inline-block;
+
+    opacity: 0;
+
+    transform:
+        translateY(20px)
+        scale(0.7);
+
+    transition:
+        opacity 0.35s ease,
+        transform 0.35s ease;
+}
+
+.birthday-letter.birthday-letter-visible {
+    opacity: 1;
+
+    transform:
+        translateY(0)
+        scale(1);
+}
+
+
+/* =========================================================
+   FLOATING MESSAGE HIDE
+   ========================================================= */
+
+.floating-message-hide {
+    opacity: 0 !important;
+
+    transform:
+        translateY(-150px)
+        scale(1.1)
+        rotate(var(--random-rotation));
+
+    transition:
+        opacity 1s ease,
+        transform 1s ease;
+}
+
+
+/* =========================================================
+   SPECIAL FLOATING MESSAGE
+   ========================================================= */
+
+.floating-special {
+    font-size: 18px;
+
+    font-weight: 800;
+
+    color: #8a4d91;
+
+    text-shadow:
+        0 2px 8px
+        rgba(255, 255, 255, 0.8);
+
+    z-index: 20;
+}
+
+
+/* =========================================================
+   CAKE CELEBRATION
+   ========================================================= */
+
+.cake.cake-celebration {
+    animation:
+        cakeCelebration 0.8s ease-in-out;
+}
+
+@keyframes cakeCelebration {
+
+    0% {
+        transform: scale(1);
+    }
+
+    30% {
+        transform: scale(1.04)
+                   rotate(-1deg);
+    }
+
+    60% {
+        transform: scale(1.07)
+                   rotate(1deg);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+
+}
+
+
+/* =========================================================
+   COMPLETED HINT
+   ========================================================= */
+
+.candle-hint.hint-complete {
+    color: #d35b96;
+
+    transform: scale(1.05);
+
+    transition:
+        color 0.3s ease,
+        transform 0.3s ease;
+}
+
+
+/* =========================================================
+   WISH BUTTON CLICK
+   ========================================================= */
+
+.wish-button.wish-button-clicked {
+    animation:
+        wishButtonPop 0.7s ease;
+}
+
+@keyframes wishButtonPop {
+
+    0% {
+        transform: scale(1);
+    }
+
+    40% {
+        transform: scale(1.12);
+    }
+
+    70% {
+        transform: scale(0.95);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+
+}
+
+
+/* =========================================================
+   GENERATED CONFETTI
+   ========================================================= */
+
+.generated-confetti {
+    position: fixed;
+
+    top: -40px;
+
+    z-index: 9999;
+
+    pointer-events: none;
+
+    font-size:
+        clamp(18px, 4vw, 30px);
+
+    animation:
+        confettiFall
+        3s
+        ease-in
+        forwards;
+}
+
+@keyframes confettiFall {
+
+    0% {
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            rotate(0deg)
+            scale(0.8);
+    }
+
+    100% {
+        opacity: 0;
+
+        transform:
+            translateY(110vh)
+            rotate(720deg)
+            scale(1.2);
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE FIX
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    .cake-hidden {
+        transform:
+            translateX(-50%)
+            translateY(15px)
+            scale(0.88);
+    }
+
+    .cake-built {
+        transform:
+            translateX(-50%)
+            translateY(0)
+            scale(0.88);
+    }
+
+    .cake-top.cake-built {
+        transform:
+            translateX(-50%)
+            translateY(0)
+            scale(0.88);
+    }
+
+    .cake-plate.cake-built {
+        transform:
+            translateX(-50%)
+            translateY(0)
+            scale(0.88);
+    }
+
+}
