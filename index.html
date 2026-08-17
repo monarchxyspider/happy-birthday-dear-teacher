@@ -1,692 +1,129 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-
-    <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <title>Happy Birthday Teacher 📚❤️</title>
-
-    <link rel="stylesheet" href="style.css">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet"
-    >
-
-</head>
-
-<body>
-
-    <!-- ========================================= -->
-    <!-- CLASSROOM / ABC BACKGROUND -->
-    <!-- ========================================= -->
-
-    <div class="background"></div>
-
-    <div class="background-glow glow-1"></div>
-    <div class="background-glow glow-2"></div>
-    <div class="background-glow glow-3"></div>
-
-
-    <!-- ========================================= -->
-    <!-- FLOATING BIRTHDAY MESSAGES -->
-    <!-- ========================================= -->
-
-    <div
-        id="floatingMessages"
-        class="floating-messages"
-        aria-hidden="true"
-    ></div>
-
-
-    <!-- ========================================= -->
-    <!-- CUSTOM ABC DECORATIONS -->
-    <!-- ========================================= -->
-
-    <div
-        class="abc-decorations"
-        aria-hidden="true"
-    >
-
-        <!-- Media.js baad mein in images ko set karega -->
-
-        <img
-            id="mediaAbcA"
-            class="abc-item abc-a custom-media"
-            alt=""
-        >
-
-        <img
-            id="mediaAbcB"
-            class="abc-item abc-b custom-media"
-            alt=""
-        >
-
-        <img
-            id="mediaAbcC"
-            class="abc-item abc-c custom-media"
-            alt=""
-        >
-
-
-        <img
-            id="mediaPencil"
-            class="school-item school-pencil custom-media"
-            alt=""
-        >
-
-        <img
-            id="mediaBook"
-            class="school-item school-book custom-media"
-            alt=""
-        >
-
-        <img
-            id="mediaStar"
-            class="school-item school-star custom-media"
-            alt=""
-        >
-
-        <img
-            id="mediaRuler"
-            class="school-item school-ruler custom-media"
-            alt=""
-        >
-
-    </div>
-
-
-    <!-- ========================================= -->
-    <!-- OLD CUSTOM DECORATION MEDIA — PRESERVED -->
-    <!-- ========================================= -->
-
-    <div class="floating-images">
-
-        <img
-            src="https://cdn.discordapp.com/attachments/1482397391888842844/1538183928828141600/942544-heart.gif?ex=6a81c0ea&is=6a806f6a&hm=bb0b663511744e578150e1b3c3748bdc6e3762c757749ce0da1001cc2eb334bc&"
-            class="floating-image floating-heart"
-            alt=""
-        >
-
-        <img
-            src="https://cdn.discordapp.com/attachments/1482397391888842844/1538184182864547840/422458-peachpetals.gif?ex=6a81c127&is=6a806fa7&hm=a1b21cffacfceb95abea40c90984fde543a110da8d4778fdcc31a4e854af6787&"
-            class="floating-image floating-decoration"
-            alt=""
-        >
-
-    </div>
-
-
-    <!-- ========================================= -->
-    <!-- BIRTHDAY MUSIC -->
-    <!-- ========================================= -->
-
-    <audio
-        id="birthdayMusic"
-        preload="auto"
-    >
-
-        <source
-            src="happy-birthday.mp3"
-            type="audio/mpeg"
-        >
-
-    </audio>
-
-
-    <!-- ========================================= -->
-    <!-- MAIN PAGE -->
-    <!-- ========================================= -->
-
-    <main class="birthday-page">
-
-
-        <!-- ========================================= -->
-        <!-- INTRO SCREEN -->
-        <!-- ========================================= -->
-
-        <section
-            class="intro"
-            id="intro"
-        >
-
-            <div class="intro-content">
-
-
-                <div
-                    class="intro-school-icon"
-                    id="introSchoolIcon"
-                >
-                    <!-- Custom image will be inserted by media.js -->
-                </div>
-
-
-                <p class="intro-small">
-                    A little classroom surprise
-                    for someone very special...
-                </p>
-
-
-                <h1 class="intro-title">
-
-                    Happy Birthday,
-
-                    <span class="teacher-word">
-                        Teacher
-                    </span>
-
-                    <span class="heart">
-                        ❤️
-                    </span>
-
-                </h1>
-
-
-                <p class="intro-subtitle">
-                    A teacher who makes every lesson
-                    a little more beautiful ✨
-                </p>
-
-
-                <div class="abc-line">
-                    A&nbsp;&nbsp; B&nbsp;&nbsp; C
-                </div>
-
-
-                <p class="intro-hint">
-                    Tap anywhere to begin ✨
-                </p>
-
-            </div>
-
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Personal home electricity and expense manager" />
+    <title>Home Current</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+    <script src="config.js"></script>
+  </head>
+  <body>
+    <aside class="sidebar">
+      <div class="brand"><span class="brand-mark">⚡</span><span><b>Home Current</b><small>Household energy</small></span></div>
+      <nav class="desktop-nav">
+        <button class="nav-button active" data-view="dashboard">⌂ <span>Dashboard</span></button>
+        <button class="nav-button" data-view="history">◷ <span>History</span></button>
+        <button class="nav-button" data-view="schedule">▣ <span>Schedule</span></button>
+        <button class="nav-button" data-view="expenses">▤ <span>Expenses</span></button>
+        <button class="nav-button" data-view="settings">⚙ <span>Settings</span></button>
+      </nav>
+      <div class="side-note"><b>Small habits add up.</b><p>A calm home starts with knowing what is running.</p></div>
+    </aside>
+
+    <header class="mobile-header">
+      <div class="brand"><span class="brand-mark">⚡</span><b>Home Current</b></div>
+      <button id="menuButton" class="icon-button" aria-label="Open menu">☰</button>
+      <nav id="mobileNav" class="mobile-nav">
+        <button class="nav-button active" data-view="dashboard">⌂ Dashboard</button>
+        <button class="nav-button" data-view="history">◷ History</button>
+        <button class="nav-button" data-view="schedule">▣ Schedule</button>
+        <button class="nav-button" data-view="expenses">▤ Expenses</button>
+        <button class="nav-button" data-view="settings">⚙ Settings</button>
+      </nav>
+    </header>
+
+    <main id="app"></main>
+
+    <template id="dashboardTemplate">
+      <div class="page">
+        <section id="hero" class="hero">
+          <div>
+            <p class="eyebrow" id="heroDate"></p>
+            <h1>A little care goes a long way.</h1>
+            <p id="heroMessage"></p>
+          </div>
+          <div class="hero-progress">
+            <div class="row"><span>Month so far</span><strong id="monthPercent">0%</strong></div>
+            <div class="progress"><i id="monthProgress"></i></div>
+            <small><b id="monthUsage">0 kWh</b> of <span id="targetLabel">170</span> kWh target</small>
+          </div>
         </section>
-
-
-        <!-- ========================================= -->
-        <!-- BIRTHDAY EXPERIENCE -->
-        <!-- ========================================= -->
-
-        <section
-            class="birthday-experience"
-            id="birthdayExperience"
-        >
-
-
-            <!-- ========================================= -->
-            <!-- TEACHER HEADER -->
-            <!-- ========================================= -->
-
-            <div class="teacher-header">
-
-                <span
-                    id="headerBook"
-                    class="header-media"
-                ></span>
-
-                <span class="teacher-header-text">
-                    TODAY'S SPECIAL LESSON
-                </span>
-
-                <span
-                    id="headerPencil"
-                    class="header-media"
-                ></span>
-
-            </div>
-
-
-            <!-- ========================================= -->
-            <!-- CAKE INTRO -->
-            <!-- ========================================= -->
-
-            <div
-                class="cake-intro"
-                id="cakeIntro"
-            >
-
-                <div class="mini-abc">
-                    A • B • C
-                </div>
-
-                <p>
-                    A special birthday lesson
-                    is being prepared for you...
-                </p>
-
-            </div>
-
-
-            <!-- ========================================= -->
-            <!-- CAKE SCENE -->
-            <!-- ========================================= -->
-
-            <div
-                class="cake-scene"
-                id="cakeScene"
-            >
-
-
-                <!-- CAKE GLOW -->
-
-                <div class="cake-glow"></div>
-
-
-                <!-- ===================================== -->
-                <!-- CANDLES -->
-                <!-- ===================================== -->
-
-                <div
-                    class="candles"
-                    id="candles"
-                >
-
-
-                    <div
-                        class="candle candle-1"
-                        data-candle="1"
-                        onclick="blowCandle(this)"
-                    >
-
-                        <div class="flame">
-                            <span class="flame-inner"></span>
-                        </div>
-
-                        <div class="smoke"></div>
-
-                        <div class="candle-body"></div>
-
-                    </div>
-
-
-                    <div
-                        class="candle candle-2"
-                        data-candle="2"
-                        onclick="blowCandle(this)"
-                    >
-
-                        <div class="flame">
-                            <span class="flame-inner"></span>
-                        </div>
-
-                        <div class="smoke"></div>
-
-                        <div class="candle-body"></div>
-
-                    </div>
-
-
-                    <div
-                        class="candle candle-3"
-                        data-candle="3"
-                        onclick="blowCandle(this)"
-                    >
-
-                        <div class="flame">
-                            <span class="flame-inner"></span>
-                        </div>
-
-                        <div class="smoke"></div>
-
-                        <div class="candle-body"></div>
-
-                    </div>
-
-
-                    <div
-                        class="candle candle-4"
-                        data-candle="4"
-                        onclick="blowCandle(this)"
-                    >
-
-                        <div class="flame">
-                            <span class="flame-inner"></span>
-                        </div>
-
-                        <div class="smoke"></div>
-
-                        <div class="candle-body"></div>
-
-                    </div>
-
-
-                    <div
-                        class="candle candle-5"
-                        data-candle="5"
-                        onclick="blowCandle(this)"
-                    >
-
-                        <div class="flame">
-                            <span class="flame-inner"></span>
-                        </div>
-
-                        <div class="smoke"></div>
-
-                        <div class="candle-body"></div>
-
-                    </div>
-
-                </div>
-
-
-                <!-- ===================================== -->
-                <!-- CAKE -->
-                <!-- ===================================== -->
-
-                <div
-                    class="cake"
-                    id="cake"
-                >
-
-
-                    <!-- TOP CHOCOLATE -->
-
-                    <div
-                        class="cake-part cake-top"
-                        data-layer="top"
-                    >
-
-                        <div class="chocolate-drip drip-1"></div>
-                        <div class="chocolate-drip drip-2"></div>
-                        <div class="chocolate-drip drip-3"></div>
-                        <div class="chocolate-drip drip-4"></div>
-                        <div class="chocolate-drip drip-5"></div>
-
-                        <span class="cake-heart heart-1">♥</span>
-                        <span class="cake-heart heart-2">♥</span>
-                        <span class="cake-heart heart-3">♥</span>
-
-
-                        <div class="abc-cake-topper">
-                            ABC
-                        </div>
-
-                    </div>
-
-
-                    <!-- TOP CREAM -->
-
-                    <div
-                        class="cake-part cake-layer cake-top-layer"
-                        data-layer="cream-top"
-                    >
-
-                        <div class="cream-line"></div>
-
-                    </div>
-
-
-                    <!-- CHOCOLATE MIDDLE -->
-
-                    <div
-                        class="cake-part cake-layer cake-chocolate-layer"
-                        data-layer="chocolate-middle"
-                    >
-
-                        <div class="chocolate-stripe"></div>
-
-                        <div class="cake-sprinkles">
-
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                            <span></span>
-
-                        </div>
-
-                    </div>
-
-
-                    <!-- CREAM MIDDLE -->
-
-                    <div
-                        class="cake-part cake-layer cake-cream-layer"
-                        data-layer="cream-middle"
-                    >
-
-                        <div class="cream-decoration">
-
-                            <span>★</span>
-                            <span>A</span>
-                            <span>♥</span>
-                            <span>B</span>
-
-                        </div>
-
-                    </div>
-
-
-                    <!-- BOTTOM CHOCOLATE -->
-
-                    <div
-                        class="cake-part cake-layer cake-bottom-layer"
-                        data-layer="bottom"
-                    >
-
-                        <div class="bottom-decoration">
-
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                            <span></span>
-
-                        </div>
-
-                    </div>
-
-
-                    <!-- CAKE PLATE -->
-
-                    <div
-                        class="cake-plate"
-                        data-layer="plate"
-                    ></div>
-
-                </div>
-
-
-                <!-- CANDLE HINT -->
-
-                <p
-                    class="candle-hint"
-                    id="candleHint"
-                >
-                    ✨ Click the candles
-                    and make a wish ✨
-                </p>
-
-
-            </div>
-
-
-            <!-- ========================================= -->
-            <!-- BIRTHDAY MESSAGE -->
-            <!-- ========================================= -->
-
-            <section
-                class="birthday-message"
-                id="birthdayMessage"
-            >
-
-
-                <div
-                    class="birthday-badge"
-                    id="birthdayBadge"
-                >
-                    <!-- Custom teacher media will be inserted here -->
-                </div>
-
-
-                <h2
-                    id="bigBirthdayText"
-                    class="big-birthday-text"
-                    aria-label="Happy Birthday"
-                ></h2>
-
-
-                <!-- MESSAGE CARD -->
-
-                <div
-                    class="message-card"
-                    id="messageCard"
-                >
-
-                    <div
-                        class="message-card-decoration"
-                        id="messageCardDecoration"
-                    >
-                        <!-- Custom media will be inserted by media.js -->
-                    </div>
-
-
-                    <p class="message-greeting">
-                        Dear Teacher,
-                    </p>
-
-
-                    <p>
-                        You are not just a teacher,
-                        you are someone who makes learning
-                        feel special and every lesson
-                        worth remembering. 📚❤️
-                    </p>
-
-
-                    <p>
-                        Your patience, kindness and dedication
-                        inspire everyone around you.
-                        The lessons you teach go far beyond
-                        books and classrooms.
-                    </p>
-
-
-                    <p>
-                        May Allah bless you with happiness,
-                        peace, good health and countless
-                        beautiful moments.
-
-                        May every new year of your life
-                        bring you new reasons to smile.
-                    </p>
-
-
-                    <p class="abc-message">
-
-                        A — Amazing<br>
-                        B — Brilliant<br>
-                        C — Caring
-
-                    </p>
-
-
-                    <p class="final-line">
-
-                        Happy Birthday to a truly wonderful
-                        Teacher. 🎂📚❤️
-
-                    </p>
-
-                </div>
-
-            </section>
-
-
-            <!-- ========================================= -->
-            <!-- WISH BUTTON -->
-            <!-- ========================================= -->
-
-            <button
-                id="wishButton"
-                class="wish-button"
-                type="button"
-            >
-                💖 Make a Wish
-            </button>
-
-
+        <section id="metrics" class="metric-grid"></section>
+        <section class="split-grid">
+          <article class="card">
+            <div class="section-heading"><div><p class="eyebrow">Daily expense tracker</p><h2>Today's household spend</h2></div><button class="soft-button" data-view="expenses">Add expense ›</button></div>
+            <div id="expenseSummary" class="mini-grid"></div>
+            <div class="progress"><i id="expenseProgress"></i></div>
+          </article>
+          <article class="card pulse-card">
+            <div class="section-heading"><div><p class="eyebrow">Right now</p><h2>Home pulse</h2></div><span class="pulse-icon">◌</span></div>
+            <strong id="activeCount" class="big-number">0</strong><p id="activeLabel">appliances are running</p>
+            <button class="ghost-light" id="seeAppliances">See appliance controls ↓</button>
+          </article>
         </section>
+        <section id="appliances-section">
+          <div class="section-heading"><div><p class="eyebrow">Appliance control</p><h2>What's drawing power</h2></div><small>Tap a card to start a live usage event.</small></div>
+          <div id="appliances" class="appliance-grid"></div>
+        </section>
+        <section class="quick-grid">
+          <button class="card quick-action" data-action="pump30"><span class="quick-icon blue">◉</span><span><b>Water pump used</b><small>Add a 30 minute event</small></span><strong>＋</strong></button>
+          <button class="card quick-action" data-action="pump40"><span class="quick-icon blue">◉</span><span><b>Pump used 40 min</b><small>Quickly log a longer run</small></span><strong>＋</strong></button>
+          <button class="card quick-action" data-action="oven"><span class="quick-icon orange">△</span><span><b>Log high-load use</b><small>Oven or fridge calculation</small></span><strong>›</strong></button>
+        </section>
+        <p class="disclaimer">ⓘ Usage is an estimate based on appliance wattage and runtime. Your physical meter is the final source of truth.</p>
+      </div>
+    </template>
 
-    </main>
+    <section id="viewHistory" class="page hidden">
+      <div class="page-intro"><span class="page-icon">◷</span><div><p class="eyebrow">History & patterns</p><h1>See the story behind the estimate.</h1><p>Pick a day to inspect runtimes, costs, and the appliances that shaped your usage.</p></div></div>
+      <label class="date-control">Inspect date <input type="date" id="historyDate" /></label>
+      <div id="historyMetrics" class="metric-grid three"></div>
+      <div class="chart-grid">
+        <article class="card chart-card"><h2>Daily electricity</h2><small>kWh by day</small><canvas id="electricityChart"></canvas></article>
+        <article class="card chart-card"><h2>Daily expenses</h2><small>PKR by day</small><canvas id="expenseChart"></canvas></article>
+        <article class="card chart-card"><h2>Monthly usage trend</h2><small>Estimate across the current month</small><canvas id="trendChart"></canvas></article>
+        <article class="card chart-card"><h2>Appliance-wise kWh</h2><small id="applianceChartLabel"></small><canvas id="applianceChart"></canvas></article>
+      </div>
+      <article class="card"><div class="section-heading"><div><p class="eyebrow">Day detail</p><h2 id="dayDetailTitle"></h2></div><strong id="dayDetailUsage" class="mono"></strong></div><div id="dayDetail" class="detail-list"></div></article>
+    </section>
 
+    <section id="viewSchedule" class="page hidden">
+      <div class="page-intro"><span class="page-icon">◷</span><div><p class="eyebrow">Electricity schedule</p><h1>A rhythm for lighter days.</h1><p>Keep the guidance visible where decisions happen. Adjust it for your home, then save it to this device.</p></div></div>
+      <div id="scheduleCards" class="schedule-grid"></div>
+      <div class="button-row"><button class="primary-button" id="saveSchedule">✓ Save schedule</button><button class="outline-button" id="resetSchedule">↻ Reset suggestions</button></div>
+      <div class="reminder"><p class="eyebrow">Small reminder</p><h2>One switch at a time is still progress.</h2></div>
+    </section>
 
-    <!-- ========================================= -->
-    <!-- OLD CONFETTI MEDIA — PRESERVED -->
-    <!-- ========================================= -->
+    <section id="viewExpenses" class="page hidden">
+      <div class="page-intro"><span class="page-icon">¤</span><div><p class="eyebrow">Daily expense tracker</p><h1>Give every rupee a place.</h1><p>A gentle view of daily spending, so electricity savings can live alongside the rest of the household budget.</p></div></div>
+<div id="expenseMetrics" class="metric-grid four"></div>
+      <div class="split-grid expenses-layout">
+        <form id="expenseForm" class="card form-card"><div class="section-heading"><div><h2>Add an expense</h2><small>Saved on this device.</small></div><span class="page-icon small">＋</span></div>
+          <label>Amount (PKR)<input required type="number" min="1" id="expenseAmount" placeholder="e.g. 850" /></label>
+          <label>Category<select id="expenseCategory"><option>Food</option><option>Electricity</option><option>Water</option><option>Transport</option><option>Shopping</option><option>Other</option></select></label>
+          <label>Date<input type="date" id="expenseDate" /></label>
+          <label>Note <small>(optional)</small><input id="expenseNote" placeholder="What was it for?" /></label>
+          <button class="primary-button" type="submit">＋ Add expense</button>
+        </form>
+        <article class="card"><div class="section-heading"><div><h2>This month</h2><small id="expenseCountLabel">No entries yet</small></div><strong id="monthExpenseTotal" class="mono"></strong></div><div id="expenseList"></div></article>
+      </div>
+      <article class="card"><div class="section-heading"><div><p class="eyebrow">Daily summaries</p><h2>Where the month is going</h2></div></div><div id="categorySummary" class="category-grid"></div></article>
+    </section>
 
-    <div
-        class="confetti-container"
-        aria-hidden="true"
-    >
-
-        <img
-            src="https://cdn.discordapp.com/attachments/1482397391888842844/1538183475918536724/730795-gomacheerpeach.gif?ex=6a81c07e&is=6a806efe&hm=28b841ca4beb12342406edcd0212126431232806d0115320d4286c96b2f542a4&"
-            class="confetti-image"
-            alt=""
-        >
-
-    </div>
-
-
-    <!-- ========================================= -->
-    <!-- OLD FINAL DECORATION — PRESERVED -->
-    <!-- ========================================= -->
-
-    <div
-        class="final-decoration"
-        aria-hidden="true"
-    >
-
-        <img
-            src="https://cdn.discordapp.com/attachments/1482397391888842844/1538184627796320456/916493-pastelgalaxyclouds.png?ex=6a81c191&is=6a807011&hm=08551a110611103660595133abeed31c555deb78e58617d20b25794e2f4ff47e&"
-            alt=""
-            class="final-image"
-        >
-
-    </div>
-
-
-    <!-- ========================================= -->
-    <!-- CREATED BY -->
-    <!-- ========================================= -->
-
-    <footer class="created-by">
-
-        <span>📚</span>
-
-        <span>
-            Made with ❤️ by
-            <strong>Abdul Raffay</strong>
-        </span>
-
-        <span>✏️</span>
-
-    </footer>
-
-
-    <!-- ========================================= -->
-    <!-- MEDIA CONFIG -->
-    <!-- ========================================= -->
-
-    <script src="media.js"></script>
-
-
-    <!-- ========================================= -->
-    <!-- JAVASCRIPT -->
-    <!-- ========================================= -->
+    <section id="viewSettings" class="page hidden">
+      <div class="page-intro"><span class="page-icon">⚙</span><div><p class="eyebrow">Home preferences</p><h1>Set the rules that feel right.</h1><p>Targets are personal. Tune the estimate to your meter, your tariff, and the appliances in your rooms.</p></div></div>
+      <div class="split-grid">
+        <form id="settingsForm" class="card form-card"><h2>Budget & estimate</h2><div class="form-two"><label>Monthly target (kWh)<input type="number" min="1" id="settingTarget" /></label><label>Daily budget (PKR)<input type="number" min="0" id="settingBudget" /></label><label>Tariff (PKR / unit)<input type="number" min="0" id="settingTariff" /></label><label>Fridge duty cycle (%)<input type="number" min="0" max="100" id="settingDuty" /></label></div><label>Tracking month start<input type="date" id="settingStartDate" /></label><button class="primary-button" type="submit">✓ Save preferences</button></form>
+        <article class="card"><div class="section-heading"><div><h2>Your appliances</h2><small>Use the rating printed on the appliance when you have it.</small></div></div><div id="settingsAppliances" class="settings-appliances"></div></article>
+      </div>
+      <article class="danger-card"><h2>Reset household data</h2><p>Remove all appliance events and expenses from this browser. Saved preferences will also return to the original suggestions.</p><button class="danger-button" id="resetAll">Delete all data</button></article>
+    </section>
 
     <script src="script.js"></script>
-
-</body>
-
+  </body>
 </html>
